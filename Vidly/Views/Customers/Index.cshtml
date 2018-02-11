@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Vidly.Models.Customer>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Customers</h2>
+
+<p>
+    @Html.ActionLink(" New Customer ", "Create", "Customer", new { @class = "btn btn-xs btn-success"})
+</p>
+<table class="table table-bordered table-hover table-striped">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateOfBirth)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MembershipType.MembershipName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @item.DateOfBirth.ToLongDateString()
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MembershipType.MembershipName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.CustomerID }, new { @class = "btn btn-xs btn-warning" })
+            @Html.ActionLink("Details", "Details", new { id = item.CustomerID }, new { @class = "btn btn-xs btn-primary" })
+            @Html.ActionLink("Delete", "Delete", new { id = item.CustomerID }, new { @class = "btn btn-xs btn-danger" })
+        </td>
+    </tr>
+}
+
+</table>

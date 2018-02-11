@@ -1,0 +1,51 @@
+﻿@model Vidly.ViewModels.MovieDetailsViewModel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Movie</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Movie.MovieName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Movie.MovieName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Movie.Genre.GenreName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Movie.Genre.GenreName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Movie.ReleaseDate)
+        </dt>
+
+        <dd>
+            @Model.Movie.ReleaseDate.ToLongDateString()
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Movie.NumberInStock)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Movie.NumberInStock)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Movie.MovieID }, new { @class = "btn btn-xs btn-warning" } ) |
+    @Html.ActionLink("Back to List", "Index", "Movies", new { @class = "btn btn-xs btn-primary" })
+</p>

@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Vidly.Models.Movie>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Movies</h2>
+
+<p>
+    @Html.ActionLink("New Movie", "Create", "Movies", htmlAttributes: new { @class = "btn btn-xs btn-success" })
+</p>
+<table class="table table-bordered table-striped table-hover">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MovieName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Genre.GenreName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReleaseDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumberInStock)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MovieName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Genre.GenreName)
+        </td>
+        <td>
+            @item.ReleaseDate.ToLongDateString()
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumberInStock)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.MovieID }, new { @class = "btn btn-xs btn-warning" })
+            @Html.ActionLink("Details", "Details", new { id = item.MovieID }, new { @class = "btn btn-xs btn-primary" })
+            @Html.ActionLink("Delete", "Delete", new { id = item.MovieID }, new { @class = "btn btn-xs btn-danger" })
+        </td>
+    </tr>
+}
+
+</table>
