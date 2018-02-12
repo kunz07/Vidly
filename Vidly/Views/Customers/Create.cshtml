@@ -1,4 +1,5 @@
-﻿@model Vidly.Models.Customer
+﻿@using System.Web.UI.WebControls
+@model Vidly.Models.Customer
 
 @{
     ViewBag.Title = "Create";
@@ -14,21 +15,13 @@
 <div class="form-horizontal">
     <h4>Customer</h4>
     <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.ValidationSummary(true, "Please Fix The Following", new { @class = "text-danger" })
 
     <div class="form-group">
         @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @PlaceHolder = "Enter Name" } })
             @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger has-error" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.DateOfBirth, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
         </div>
     </div>
 
@@ -37,6 +30,14 @@
         <div class="col-md-10">
             @Html.DropDownList("MembershipTypeID", null, "Select Membership Type", htmlAttributes: new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.MembershipTypeID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.DateOfBirth, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control", @PlaceHolder = "Enter Date of Birth" } })
+            @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
         </div>
     </div>
 

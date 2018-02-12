@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using Microsoft.Ajax.Utilities;
 
 namespace Vidly.Models
 {
@@ -20,8 +21,8 @@ namespace Vidly.Models
         [Display(Name = "Customer Name")]
         public string Name { get; set; }
 
-        [Required]
         [Display(Name = "Date Of Birth")]
-        public DateTime DateOfBirth { get; set; }
+        [AgeValidation]
+        public DateTime? DateOfBirth { get; set; }
     }
 }

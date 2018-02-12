@@ -18,5 +18,8 @@ namespace Vidly.Models
 
         [Display(Name = "Duration in Months")]
         public int MembershipDuration { get; set; }
+
+        public static readonly byte Unknown = 0;
+        public static readonly byte PayAsYouGo = 1;
     }
 }
