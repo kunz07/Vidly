@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using AutoMapper;
 using Vidly.Models;
 
 namespace Vidly.Controllers.Api
@@ -17,9 +18,9 @@ namespace Vidly.Controllers.Api
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/Customers
-        public IQueryable<Customer> GetCustomers()
+        public IEnumerable<CustomerDto> GetCustomers()
         {
-            return db.Customers;
+            return db.Customers.ToList().Select(Mapper.Map<Customer, CustomerDto>);
         }
 
         // GET: api/Customers/5
@@ -32,24 +33,26 @@ namespace Vidly.Controllers.Api
                 return NotFound();
             }
 
+            Mapper.Map<Customer, CustomerDto>(customer);
             return Ok(customer);
         }
 
         // PUT: api/Customers/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutCustomer(byte id, Customer customer)
+        public IHttpActionResult PutCustomer(byte id, CustomerDto customerDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != customer.CustomerID)
+            var customerinDb = db.Customers.SingleOrDefault(c => c.CustomerID == id);
+            if (customerinDb == null)
             {
                 return BadRequest();
             }
 
-            db.Entry(customer).State = EntityState.Modified;
+            Mapper.Map<CustomerDto, Customer>(customerDto, customerinDb);
 
             try
             {
@@ -72,15 +75,18 @@ namespace Vidly.Controllers.Api
 
         // POST: api/Customers
         [ResponseType(typeof(Customer))]
-        public IHttpActionResult PostCustomer(Customer customer)
+        public IHttpActionResult PostCustomer(CustomerDto customerDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
+            var customer = Mapper.Map<CustomerDto, Customer>(customerDto);
+
             db.Customers.Add(customer);
             db.SaveChanges();
+            customerDto.CustomerID = customer.CustomerID;
 
             return CreatedAtRoute("DefaultApi", new { id = customer.CustomerID }, customer);
         }
