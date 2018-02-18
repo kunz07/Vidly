@@ -12,6 +12,7 @@ namespace Vidly
         public static void Register(HttpConfiguration config)
         {
             var settings = config.Formatters.JsonFormatter.SerializerSettings;
+            settings.DateFormatString = "dd-MM-yyyy";
             settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             settings.Formatting = Formatting.Indented;
 

@@ -10,78 +10,87 @@
 <p>
     @Html.ActionLink("New Movie", "Create", "Movies", htmlAttributes: new { @class = "btn btn-sm btn-success" })
 </p>
-<table id ="movie"class="table table-bordered table-striped table-hover">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.MovieName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Genre.GenreName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ReleaseDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NumberInStock)
-        </th>
-        <th>Actions</th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.MovieName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Genre.GenreName)
-        </td>
-        <td>
-            @item.ReleaseDate.ToLongDateString()
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NumberInStock)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.MovieID }, new { @class = "btn btn-sm btn-warning" })
-            @Html.ActionLink("Details", "Details", new { id = item.MovieID }, new { @class = "btn btn-sm btn-primary" })
-            <button data-movie-id="@item.MovieID" class ="btn btn-danger btn-sm js-delete">Delete</button>
-        </td>
-    </tr>
-}
+<table id="movie" class="table table-bordered table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MovieName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Genre.GenreName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReleaseDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumberInStock)
+            </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MovieName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Genre.GenreName)
+                </td>
+                <td>
+                    @item.ReleaseDate.ToLongDateString()
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumberInStock)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new {id = item.MovieID}, new {@class = "btn btn-sm btn-warning"})
+                    @Html.ActionLink("Details", "Details", new {id = item.MovieID}, new {@class = "btn btn-sm btn-primary"})
+                    <button data-movie-id="@item.MovieID" class="btn btn-danger btn-sm js-delete">Delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+    
 
 </table>
 @section scripts
 {
     <script>
         $(document).ready(function () {
-            $("#movie").on("click", ".js-delete", function () {
-                var btn = $(this);
-                bootbox.confirm({
-                    size: 'medium',
-                    message: "Are you sure you want to delete this movie?",
-                    buttons: {
-                        confirm: {
-                            label: 'Delete',
-                            className: 'btn-sm btn-danger'
+            $("#movie").DataTable();
+
+            $("#movie").on("click",
+                ".js-delete",
+                function() {
+                    var btn = $(this);
+                    bootbox.confirm({
+                        size: 'medium',
+                        message: "Are you sure you want to delete this movie?",
+                        buttons: {
+                            confirm: {
+                                label: 'Delete',
+                                className: 'btn-sm btn-danger'
+                            },
+                            cancel: {
+                                label: 'Go back',
+                                className: 'btn-sm btn-primary'
+                            }
                         },
-                        cancel: {
-                            label: 'Go back',
-                            className: 'btn-sm btn-primary'
+                        callback: function(result) {
+                            if (result) {
+                                $.ajax({
+                                    url: `/api/Movies/${btn.attr("data-customer-id")}`,
+                                    method: "DELETE",
+                                    success: function() {
+                                        btn.parents("tr").remove();
+                                    }
+                                });
+                            }
                         }
-                    },
-                    callback: function (result) {
-                        if (result) {
-                            $.ajax({
-                                url: `/api/Movies/${btn.attr("data-customer-id")}`,
-                                method: "DELETE",
-                                success: function () {
-                                    btn.parents("tr").remove();
-                                }
-                            });
-                        }
-                    }
+                    });
                 });
-            });
         });
     </script>
 }
