@@ -1,46 +1,85 @@
-﻿@model IEnumerable<Vidly.Models.Customer>
+﻿@using Vidly.Models
+@model IEnumerable<Vidly.Models.Customer>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="container">
+    <h2>Customers</h2>
 
-<h2>Customers</h2>
+    <p>
+        @Html.ActionLink(" New Customer ", "Create", "Customer", new {@class = "btn btn-sm btn-success"})
+    </p>
+    <table id="customer" class="table table-bordered table-hover table-striped">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfBirth)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MembershipType.MembershipName)
+            </th>
+            <th>Actions</th>
+        </tr>
 
-<p>
-    @Html.ActionLink(" New Customer ", "Create", "Customer", new { @class = "btn btn-xs btn-success"})
-</p>
-<table class="table table-bordered table-hover table-striped">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateOfBirth)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MembershipType.MembershipName)
-        </th>
-        <th></th>
-    </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOfBirth)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MembershipType.MembershipName)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new {id = item.CustomerID}, new {@class = "btn btn-sm btn-warning"})
+                    @Html.ActionLink("Details", "Details", new {id = item.CustomerID}, new {@class = "btn btn-sm btn-primary"})
+                    <button data-customer-id="@item.CustomerID" class="btn btn-sm btn-danger js-delete">Delete</button>
+                </td>
+            </tr>
+        }
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateOfBirth)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MembershipType.MembershipName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.CustomerID }, new { @class = "btn btn-xs btn-warning" })
-            @Html.ActionLink("Details", "Details", new { id = item.CustomerID }, new { @class = "btn btn-xs btn-primary" })
-            @Html.ActionLink("Delete", "Delete", new { id = item.CustomerID }, new { @class = "btn btn-xs btn-danger" })
-        </td>
-    </tr>
+    </table>
+</div>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#customer").on("click", ".js-delete", function () {
+                var btn = $(this);
+                bootbox.confirm({ 
+                    size: 'medium',
+                    message: "Are you sure you want to delete this customer?",
+                    buttons: {
+                        confirm: {
+                            label: 'Delete',
+                            className: 'btn-sm btn-danger'
+                        },
+                        cancel: {
+                            label: 'Go back',
+                            className: 'btn-sm btn-primary'
+                        }
+                    },
+                    callback: function (result) {
+                        if (result) {
+                            $.ajax({
+                                url: `/api/Customers/${btn.attr("data-customer-id")}`,
+                                method: "DELETE",
+                                success: function () {
+                                    btn.parents("tr").remove();
+                                }
+                            });
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 }
-
-</table>
