@@ -7,9 +7,9 @@
 
     <ul class="navbar-nav mr-auto">
         <li>
-            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "py-0" })
+            @Html.ActionLink("Welcome " + User.Identity.GetUserName().Split('@')[0], "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "nav-item nav-link font-weight-bold" })
         </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+        <li><a href="#" class="nav-link " onclick="javascript:document.getElementById('logoutForm').submit()">Log Off</a></li>
     </ul>
     }
 }
