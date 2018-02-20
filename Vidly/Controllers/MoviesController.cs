@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using Microsoft.Owin.Security;
 using Vidly.Models;
 using Vidly.ViewModels;
 
@@ -15,10 +14,8 @@ namespace Vidly.Controllers
         // GET: Movies
         public ActionResult Index()
         {
-            if (User.IsInRole(RoleNames.CanManageMovies))
-                return View("Index");
-
-            return View("ReadOnlyIndex");
+            var movies = db.Movies.Include(m => m.Genre);
+            return View(movies.ToList());
         }
 
         // GET: Movies/Details/5
@@ -42,7 +39,6 @@ namespace Vidly.Controllers
             return View(moviedetails);
         }
 
-        [Authorize(Roles = RoleNames.CanManageMovies)]
         // GET: Movies/Create
         public ActionResult Create()
         {
@@ -50,7 +46,6 @@ namespace Vidly.Controllers
             return View();
         }
 
-        [Authorize(Roles = RoleNames.CanManageMovies)]
         // POST: Movies/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -69,7 +64,6 @@ namespace Vidly.Controllers
             return View(movie);
         }
 
-        [Authorize(Roles = RoleNames.CanManageMovies)]
         // GET: Movies/Edit/5
         public ActionResult Edit(byte? id)
         {
@@ -86,7 +80,6 @@ namespace Vidly.Controllers
             return View(movie);
         }
 
-        [Authorize(Roles = RoleNames.CanManageMovies)]
         // POST: Movies/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -104,7 +97,6 @@ namespace Vidly.Controllers
             return View(movie);
         }
 
-        [Authorize(Roles = RoleNames.CanManageMovies)]
         // GET: Movies/Delete/5
         public ActionResult Delete(byte? id)
         {
@@ -126,7 +118,6 @@ namespace Vidly.Controllers
             return View(movies);
         }
 
-        [Authorize(Roles = RoleNames.CanManageMovies)]
         // POST: Movies/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

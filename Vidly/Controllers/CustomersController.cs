@@ -14,7 +14,8 @@ namespace Vidly.Controllers
         // GET: Customers
         public ActionResult Index()
         {
-           return View("Index");
+            var customers = db.Customers.Include(c => c.MembershipType);
+            return View(customers.ToList());
         }
 
         // GET: Customers/Details/5
@@ -96,37 +97,37 @@ namespace Vidly.Controllers
             return View(customer);
         }
 
-        // GET: Customers/Delete/5
-        public ActionResult Delete(byte? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Customer customer = db.Customers.Find(id);
-            var memberships = db.MembershipTypes.ToList();
-            var membershiplist = new CustomerDetailsViewModel()
-            {
-                Customer = customer,
-                MembershipTypes = memberships
-            };
-            if (customer == null)
-            {
-                return HttpNotFound();
-            }
-            return View(membershiplist);
-        }
+        //// GET: Customers/Delete/5
+        //public ActionResult Delete(byte? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Customer customer = db.Customers.Find(id);
+        //    var memberships = db.MembershipTypes.ToList();
+        //    var membershiplist = new CustomerDetailsViewModel()
+        //    {
+        //        Customer = customer,
+        //        MembershipTypes = memberships
+        //    };
+        //    if (customer == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(membershiplist);
+        //}
 
-        // POST: Customers/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(byte id)
-        {
-            Customer customer = db.Customers.Find(id);
-            db.Customers.Remove(customer);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+        //// POST: Customers/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(byte id)
+        //{
+        //    Customer customer = db.Customers.Find(id);
+        //    db.Customers.Remove(customer);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
 
         protected override void Dispose(bool disposing)
         {

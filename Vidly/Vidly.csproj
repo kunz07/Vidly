@@ -20,7 +20,7 @@
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
-    <IISExpressSSLPort>44340</IISExpressSSLPort>
+    <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -258,18 +258,6 @@
     <Compile Include="Migrations\201802120544292_tenth.Designer.cs">
       <DependentUpon>201802120544292_tenth.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201802191538152_SeedUsers.cs" />
-    <Compile Include="Migrations\201802191538152_SeedUsers.Designer.cs">
-      <DependentUpon>201802191538152_SeedUsers.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201802200340402_AddedDrivingLicense.cs" />
-    <Compile Include="Migrations\201802200340402_AddedDrivingLicense.Designer.cs">
-      <DependentUpon>201802200340402_AddedDrivingLicense.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201802200502226_AddedPhoneNumber.cs" />
-    <Compile Include="Migrations\201802200502226_AddedPhoneNumber.Designer.cs">
-      <DependentUpon>201802200502226_AddedPhoneNumber.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AgeValidation.cs" />
@@ -279,7 +267,6 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MembershipType.cs" />
     <Compile Include="Models\Movie.cs" />
-    <Compile Include="Models\RoleNames.cs" />
     <Compile Include="Models\VidlyContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -648,8 +635,6 @@
     <Content Include="Views\Movies\Index.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_NavBar.cshtml" />
-    <Content Include="Views\Movies\ReadOnlyIndex.cshtml" />
-    <Content Include="Views\Customers\ReadOnlyIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -694,15 +679,6 @@
     <EmbeddedResource Include="Migrations\201802120544292_tenth.resx">
       <DependentUpon>201802120544292_tenth.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802191538152_SeedUsers.resx">
-      <DependentUpon>201802191538152_SeedUsers.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802200340402_AddedDrivingLicense.resx">
-      <DependentUpon>201802200340402_AddedDrivingLicense.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802200502226_AddedPhoneNumber.resx">
-      <DependentUpon>201802200502226_AddedPhoneNumber.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -723,7 +699,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>57636</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44340/</IISUrl>
+          <IISUrl>http://localhost:57636/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

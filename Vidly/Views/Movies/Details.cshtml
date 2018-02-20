@@ -1,5 +1,4 @@
-﻿@using Vidly.Models
-@model Vidly.ViewModels.MovieDetailsViewModel
+﻿@model Vidly.ViewModels.MovieDetailsViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -46,15 +45,7 @@
 
     </dl>
 </div>
-
-@if (User.IsInRole(RoleNames.CanManageMovies))
-    {
-        <p>
-            @Html.ActionLink("Edit", "Edit", new { id = Model.Movie.MovieID }, new { @class = "btn btn-sm btn-warning" }) |
-            @Html.ActionLink("Back to List", "Index", "Movies", new { @class = "btn btn-sm btn-primary" })
-        </p>
-    }
-else
-    {
-        @Html.ActionLink("Back to List", "Index", "Movies", new { @class = "btn btn-sm btn-primary" })
-    }
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Movie.MovieID }, new { @class = "btn btn-sm btn-warning" } ) |
+    @Html.ActionLink("Back to List", "Index", "Movies", new { @class = "btn btn-sm btn-primary" })
+</p>
