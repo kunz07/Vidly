@@ -35,6 +35,7 @@ namespace Vidly.Controllers.Api
             return Ok(movie);
         }
 
+        [Authorize(Roles = RoleNames.CanManageMovies)]
         // PUT: api/Movies/5
         [ResponseType(typeof(void))]
         public IHttpActionResult PutMovie(byte id, MovieDto movieDto)
@@ -71,6 +72,7 @@ namespace Vidly.Controllers.Api
             return StatusCode(HttpStatusCode.NoContent);
         }
 
+        [Authorize(Roles = RoleNames.CanManageMovies)]
         // POST: api/Movies
         [ResponseType(typeof(Movie))]
         public IHttpActionResult PostMovie(MovieDto movieDto)
@@ -89,6 +91,7 @@ namespace Vidly.Controllers.Api
             return CreatedAtRoute("DefaultApi", new { id = movie.MovieID }, movie);
         }
 
+        [Authorize(Roles = RoleNames.CanManageMovies)]
         // DELETE: api/Movies/5
         [ResponseType(typeof(Movie))]
         public IHttpActionResult DeleteMovie(byte id)

@@ -38,7 +38,7 @@
 {
     <script>
         $(document).ready(function() {
-            $("#movie").DataTable({
+            var table = $("#movie").DataTable({
                 ajax: {
                     url: "api/Movies",
                     dataSrc: ""
@@ -60,9 +60,9 @@
                         data: "numberInStock"
                     },
                     {
-                        data: "customerID",
+                        data: "movieID",
                         render: function (data, type, movie) {
-                            return "<button class = 'btn btn-sm btn-danger js-delete' data-customer-id=" +
+                            return "<button class = 'btn btn-sm btn-danger js-delete' data-movie-id=" +
                                 data +
                                 ">Delete</button>";
 
@@ -91,7 +91,7 @@
                     callback: function(result) {
                         if (result) {
                             $.ajax({
-                                url: `/api/Customers/${btn.attr("data-movie-id")}`,
+                                url: `/api/Movies/${btn.attr("data-movie-id")}`,
                                 method: "DELETE",
                                 success: function() {
                                     table.row(btn.parents("tr")).remove().draw();
