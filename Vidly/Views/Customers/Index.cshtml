@@ -50,7 +50,7 @@
                     {
                         data: "name",
                         render: function(data, type, customer) {
-                            return "<a href='/Customers/Details/" + customer.customerID + "'/>" + customer.name + "</a>";
+                            return `<a href='/Customers/Details/${customer.customerID}'/>${customer.name}</a>`;
                         }
                     },
                     {
@@ -61,11 +61,11 @@
                     },
                     {
                         data: "customerID",
-                        render: function (data, type, customer) {
+                        render: function(data, type, customer) {
                             return "<button class = 'btn btn-sm btn-danger js-delete' data-customer-id=" +
                                 data +
                                 ">Delete</button>";
-                            
+
                         }
                     }
                 ]
