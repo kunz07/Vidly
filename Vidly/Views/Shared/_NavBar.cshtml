@@ -1,15 +1,22 @@
-﻿<div class="container">
-    <div class="navbar navbar-expand-lg py-0 fixed-top navbar-dark bg-dark">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        @Html.ActionLink("Vidly", "Index", "Home", new { area = "" }, new { @class = "navbar-brand py-2" })
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <ul class="navbar-nav">
-                <li>@Html.ActionLink("Movies", "Index", "Movies", new { area = "" }, new { @class = "nav-item nav-link py-0" })</li>
-                <li>@Html.ActionLink("Customers", "Index", "Customers", new { area = "" }, new { @class = "nav-item nav-link py-0" })</li>
-            </ul>
-        </div>
+﻿@using Microsoft.AspNet.Identity
+<nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
+    @Html.ActionLink("Vidly", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+    <button class="navbar-toggler btn-sm" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                @Html.ActionLink("New Rentals", "New", "NewRentals", new { area = "" }, new { @class = "nav-link" })
+            </li>
+            <li class="nav-item">
+                @Html.ActionLink("Movies", "Index", "Movies", new { area = "" }, new { @class = "nav-link" })
+            </li>
+            <li class="nav-item">
+                @Html.ActionLink("Customers", "Index", "Customers", new { area = "" }, new { @class = "nav-link" })
+            </li>
+        </ul>
+        <div class="dropdown-divider"></div>
         @Html.Partial("_LoginPartial")
     </div>
-</div>
+</nav>

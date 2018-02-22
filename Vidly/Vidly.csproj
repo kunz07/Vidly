@@ -221,15 +221,18 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\CustomersController.cs" />
+    <Compile Include="Controllers\Api\MovieRentalsController.cs" />
     <Compile Include="Controllers\Api\MoviesController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
+    <Compile Include="Controllers\NewRentalsController.cs" />
     <Compile Include="Dtos\CustomerDto.cs" />
     <Compile Include="Dtos\GenreDto.cs" />
     <Compile Include="Dtos\MembershipTypeDto.cs" />
     <Compile Include="Dtos\MovieDto.cs" />
+    <Compile Include="Dtos\MovieRentalsDto.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -286,6 +289,10 @@
     <Compile Include="Migrations\201802200502226_AddedPhoneNumber.Designer.cs">
       <DependentUpon>201802200502226_AddedPhoneNumber.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802220608092_MovieRentals.cs" />
+    <Compile Include="Migrations\201802220608092_MovieRentals.Designer.cs">
+      <DependentUpon>201802220608092_MovieRentals.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AgeValidation.cs" />
@@ -295,6 +302,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MembershipType.cs" />
     <Compile Include="Models\Movie.cs" />
+    <Compile Include="Models\MovieRentals.cs" />
     <Compile Include="Models\RoleNames.cs" />
     <Compile Include="Models\VidlyContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -464,12 +472,15 @@
     <Content Include="Content\DataTables\media\images\sort_both.png" />
     <Content Include="Content\DataTables\media\images\sort_desc.png" />
     <Content Include="Content\DataTables\media\images\sort_desc_disabled.png" />
+    <Content Include="Content\typeahead.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Scripts\bloodhound.js" />
+    <Content Include="Scripts\bloodhound.min.js" />
     <Content Include="Scripts\bootbox.js" />
     <Content Include="Scripts\bootbox.min.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -608,6 +619,10 @@
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\typeahead.bundle.js" />
+    <Content Include="Scripts\typeahead.bundle.min.js" />
+    <Content Include="Scripts\typeahead.jquery.js" />
+    <Content Include="Scripts\typeahead.jquery.min.js" />
     <Content Include="Scripts\umd\popper-utils.js" />
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
@@ -667,6 +682,7 @@
     <Content Include="Views\Movies\ReadOnlyIndex.cshtml" />
     <Content Include="Views\Customers\ReadOnlyIndex.cshtml" />
     <Content Include="AppSettings.config" />
+    <Content Include="Views\NewRentals\New.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -719,6 +735,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802200502226_AddedPhoneNumber.resx">
       <DependentUpon>201802200502226_AddedPhoneNumber.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802220608092_MovieRentals.resx">
+      <DependentUpon>201802220608092_MovieRentals.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

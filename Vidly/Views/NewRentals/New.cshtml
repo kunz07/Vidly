@@ -1,0 +1,90 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "New Rental Form";
+}
+
+<form>
+    <div class="form-group">
+        <label>Customer</label>
+        <div class="container">
+            <input id="customer" type="text" value="" class="form-control" />
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label>Movies</label>
+        <div class="container">
+            <input id="movies" type="text" value="" class="form-control" />
+        </div>
+    </div>
+    
+    <ul id="movie" class="list-group"></ul>
+
+    <button class="btn btn-success">Submit</button>
+    
+    <p class="text-danger invisible error-message">Movie already exists</p>
+</form>
+
+@section scripts
+{
+    <script>
+        var vm = {
+            movieIds: []
+        };
+
+        $(document).ready(function() {
+            var customers = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                remote: {
+                    url: '/api/Customers?query=%QUERY',
+                    wildcard: '%QUERY'
+                }
+            });
+
+            $('#customer').typeahead({
+                    highlight: true
+                },
+                {
+                    name: 'customers',
+                    display: 'name',
+                    source: customers
+                }).on("typeahead:select",
+                function(e, customer) {
+                    vm.customerId = customer.CustomerID;
+                });
+
+            var movies = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('movieName'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                remote: {
+                    url: '/api/Movies?query=%QUERY',
+                    wildcard: '%QUERY'
+                }
+            });
+
+            $('#movies').typeahead({
+                    hint: true,
+                    highlight: true
+                },
+                {
+                    name: 'movies',
+                    display: 'movieName',
+                    source: movies
+                }).on("typeahead:select",
+                function(e, movie) {
+                    if ($.inArray(movie.movieID, vm.movieIds) > -1) {
+                        if (vm.movieIds.length > 0) {
+                            $(".error-message").removeClass("invisible").addClass("visible");
+                        }
+                    } else {
+                        $(".error-message").removeClass("visible").addClass("invisible");
+                        $("#movie").append(`<li class='list-item'>${movie.movieName}</li>`);
+                        vm.movieIds.push(movie.movieID);
+                    }
+                    $("#movies").typeahead('val', '');
+                });
+        });
+    </script>
+}

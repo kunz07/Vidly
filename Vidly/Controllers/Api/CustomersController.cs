@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
@@ -12,12 +13,19 @@ namespace Vidly.Controllers.Api
 {
     public class CustomersController : ApiController
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private readonly ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/Customers
-        public IEnumerable<CustomerDto> GetCustomers()
+        public IEnumerable<CustomerDto> GetCustomers(string query = null)
         {
-            return db.Customers.Include(c => c.MembershipType).ToList().Select(Mapper.Map<Customer, CustomerDto>);
+            var customersQuery = db.Customers.Include(c => c.MembershipType);
+
+            if (!String.IsNullOrWhiteSpace(query))
+                customersQuery = db.Customers.Where(c => c.Name.Contains(query));
+
+            return customersQuery
+                .ToList()
+                .Select(Mapper.Map<Customer, CustomerDto>);
         }
 
         // GET: api/Customers/5

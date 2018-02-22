@@ -1,22 +1,26 @@
 ﻿@using Microsoft.AspNet.Identity
 @if (Request.IsAuthenticated)
 {
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "mr-auto" }))
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "ml-auto" }))
     {
-    @Html.AntiForgeryToken()
-
-    <ul class="navbar-nav mr-auto">
-        <li>
-            @Html.ActionLink("Welcome " + User.Identity.GetUserName().Split('@')[0], "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "nav-item nav-link font-weight-bold" })
-        </li>
-        <li><a href="#" class="nav-link " onclick="javascript:document.getElementById('logoutForm').submit()">Log Off</a></li>
-    </ul>
+        @Html.AntiForgeryToken()
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                @Html.ActionLink("Welcome " + User.Identity.GetUserName().Split('@')[0], "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "nav-link font-weight-bold" })
+            </li>
+                
+            <li class="nav-item"><a href="#" class="nav-link" onclick="javascript:document.getElementById('logoutForm').submit()">Log Off</a></li>
+        </ul>
     }
 }
 else
 {
-    <ul class="navbar-nav mr-auto">
-        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "nav-item nav-link py-0"})</li>
-        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "nav-item nav-link py-0"})</li>
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+            @Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "nav-link" })
+        </li>
+        <li class="nav-item">
+            @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "nav-link" })
+        </li>
     </ul>
 }

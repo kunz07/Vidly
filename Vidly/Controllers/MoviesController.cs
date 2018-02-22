@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using Microsoft.Owin.Security;
 using Vidly.Models;
 using Vidly.ViewModels;
 

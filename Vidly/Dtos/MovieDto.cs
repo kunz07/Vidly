@@ -6,6 +6,7 @@ namespace Vidly.Dtos
 {
     public class MovieDto
     {
+        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public byte MovieID { get; set; }
 

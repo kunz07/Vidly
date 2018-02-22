@@ -7,6 +7,7 @@ namespace Vidly
 {
     public class CustomerDto
     {
+        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Byte CustomerID { get; set; }
 
