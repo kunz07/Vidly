@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Http;
+using AutoMapper;
 using Vidly.Dtos;
 using Vidly.Models;
 
@@ -8,41 +11,41 @@ namespace Vidly.Controllers.Api
 {
     public class MovieRentalsController : ApiController
     {
-        public ApplicationDbContext db { get; set; }
+        public ApplicationDbContext _db { get; set; }
 
         public MovieRentalsController()
         {
-            db = new ApplicationDbContext();
+            _db = new ApplicationDbContext();
         }
 
         protected override void Dispose(bool disposing)
         {
-            db.Dispose();
+            _db.Dispose();
         }
 
         [HttpPost]
         public IHttpActionResult CreateNewRental(MovieRentalsDto newRental)
         {
-            var customer = db.Customers.Single(c => c.CustomerID == newRental.CustomerID);
-            var moviesList = db.Movies.Where(c => newRental.MoviesIDs.Contains(c.MovieID)).ToList();
-
-            foreach(var movie in moviesList)
+            var customer = _db.Customers.Single(c => c.CustomerID == newRental.CustomerID);
+            var moviesList = _db.Movies.Where(c => newRental.MovieIDs.Contains(c.MovieID)).ToList();
+            Console.WriteLine(moviesList);
+            foreach (var movie in moviesList)
             {
                 if (movie.NumberAvailable == 0)
                     return BadRequest();
 
                 movie.NumberAvailable--;
-                var rental = new MovieRentals {
+                var rental = new MovieRentals
+                {
                     Customer = customer,
                     Movie = movie,
                     DateRented = DateTime.Now
                 };
 
-                db.MovieRentals.Add(rental);
+                _db.MovieRentals.Add(rental);
             }
 
-            db.SaveChanges();
-            Console.WriteLine("WTF!?");
+            _db.SaveChanges();
             return Ok("Done");
         }
     }
